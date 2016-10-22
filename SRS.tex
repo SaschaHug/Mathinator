@@ -1,0 +1,89 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[ngerman]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{color}
+\usepackage[a4paper, lmargin={4cm}, rmargin={2cm}, tmargin={2,5cm}, bmargin={2,5cm}]{geometry}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{framed}
+\usepackage{url}
+\usepackage{eurosym}
+\usepackage{acronym}
+\usepackage{selinput}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{booktabs}
+%
+\clubpenalty = 100
+\widowpenalty = 100
+%
+
+\newcommand{\Gruppenmitglieder}{Sascha Hug, Tobias Lamm, Tim Saupp}
+\newcommand{\Kursbezeichnung}{TINF15B3}
+\newcommand{\Was}{The Mathinator}
+\newcommand{\Titel}{Software Requirments Specifications}
+
+
+%
+\begin{document}
+\begin{titlepage}
+	\begin{center}
+			\vspace*{-2cm}
+			{\Huge \Titel}\\[2cm]
+			{\Huge\scshape \Was}\\[2cm]
+			\vfill
+	\end{center}
+	\begin{tabular}{l@{\hspace{2cm}}l}
+	        Gruppenmitglieder			         & \Gruppenmitglieder		\\
+			Kurs			         & \Kursbezeichnung		\\
+
+	\end{tabular}
+\end{titlepage}
+
+\newpage
+\tableofcontents
+          
+\section{Introduction}
+This document describes the Software Requirements Specifications (SRS) for the Application ?The Mathinator?.
+\subsection{Purpose}
+The purpose of this document is to give a detailed description of the requirements for the application \textsc{The Mathinator}. It will cover the features in full detail. Furthermore reliability, reaction speed and other important characteristics of this project will be specified. 
+This includes design and architectural decisions regarding optimization of these criteria as well.
+\subsection{Scope}
+\textsc{The Mathinator} is an Android application designed to learn your handwriting via character recognition based on an Artificial Intelligence (AI) and providing the user with the solution.
+\subsection{Definitions, Acronyms and Abbreviations}
+\begin{acronym}[Bash]
+	\acro{AI}{Artificial intelligence}
+	\acro{Android}{A mobile operating system used primarily for smartphones and tablets}
+	\acro{NA}{Not applicable}
+	\acro{TBD}{To be determined}
+	\acro{UC}{Use Case}
+\end{acronym}
+\subsection{References}
+	{\centering
+	\begin{tabular}{p{3cm}|p{8cm}|p{3cm}}
+		Dokument & Link & Datum \\ \hline\hline
+		Blog & https://mathinator.tobiaslamm.de & 12.10.2016\\ \hline
+		SRS & GITHUBLINK & 23.10.2016\\ \hline
+	\end{tabular}
+	}
+
+\subsection{Overview}
+The rest of the document is separated into 3 different chapters. 
+Chapter 2 will cover the software's architecture and functionalities.
+Chapter 3 deals with the requirements.
+Chapter 4 will provide additional Information
+\section{Overall Discription}
+\subsection{Vision}
+Studying mathematics can be a frustrating endeavour at times. Our application aims to aid the user in these troubled situations by providing solutions to certain problems, so the user can check whether he correctly solved the given equation. People using our app can take pictures of equations and are provided with a solution.\\\newline
+The following picture shows the overall use case diagram of our application:
+HEREHERHERHEHHREWHRHEHRHEHRHERHEHRHERHEHRHEHRHEHRHERHEHRHEHRHERHEHRHEHRHHRRHEHREHRHEHRHEHRHERHEHRHERHEHRHERHEHRHEHRHERHEREHEREHERHERHEHHREWHRHEHRHEHRHERHEHRHERHEHRHEHRHEHRHERHEHRHEHRHERHEHRHEHRHHRRHEHREHRHEHRHEHRHERHEHRHERHEHRHERHEHRHEHRHERHEREHEREHERHERHEHHREWHRHEHRHEHRHERHEHRHERHEHRHEHRHEHRHERHEHRHEHRHERHEHRHEHRHHRRHEHREHRHEHRHEHRHERHEHRHERHEHRHERHEHRHEHRHERHEREHEREHERHERHEHHREWHRHEHRHEHRHERHEHRHERHEHRHEHRHEHRHERHEHRHEHRHERHEHRHEHRHHRRHEHREHRHEHRHEHRHERHEHRHERHEHRHERHEHRHEHRHERHEREHEREHERHERHEHHREWHRHEHRHEHRHERHEHRHERHEHRHEHRHEHRHERHEHRHEHRHERHEHRHEHRHHRRHEHREHRHEHRHEHRHERHEHRHERHEHRHERHEHRHEHRHERHEREHEREHERHERHEHHREWHRHEHRHEHRHERHEHRHERHEHRHEHRHEHRHERHEHRHEHRHERHEHRHEHRHHRRHEHREHRHEHRHEHRHERHEHRHERHEHRHERHEHRHEHRHERHEREHEREHERHERHEHHREWHRHEHRHEHRHERHEHRHERHEHRHEHRHEHRHERHEHRHEHRHERHEHRHEHRHHRRHEHREHRHEHRHEHRHERHEHRHERHEHRHERHEHRHEHRHERHEREHEREHERHERHEHHREWHRHEHRHEHRHERHEHRHERHEHRHEHRHEHRHERHEHRHEHRHERHEHRHEHRHHRRHEHREHRHEHRHEHRHERHEHRHERHEHRHERHEHRHEHRHERHERE
+\section{Specific Requirements}
+\subsection{Functionality}
+\subsubsection{Take a picture}
+\subsubsection{Solve Math Equation}
+\subsubsection{Go through History}
+\subsection{Usability}
+\subsection{Supportability}
+
+\newpage
+\end{document}
