@@ -29,9 +29,9 @@ public class ApplicationTest extends ActivityInstrumentationTestCase2 {
         super.tearDown();
     }
 
-    public void testMainActivityOpened() throws Exception {
+    public void testMathinator1Opened() throws Exception {
         // Check that MainActivity is opened succesfully
-        solo.assertCurrentActivity("Expected Main activity", "MainActivity");
+        solo.assertCurrentActivity("Expected Main activity", "Mathinator1");
     }
 
     public void testHelloWorldFound() throws Exception {
