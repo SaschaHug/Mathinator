@@ -1,11 +1,11 @@
-package de.tobiaslamm.httpsmathinator.mathinator;
+package de.dhbw.app.mathinator;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class Mathinator1 extends AppCompatActivity {
+public class Mathinator extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

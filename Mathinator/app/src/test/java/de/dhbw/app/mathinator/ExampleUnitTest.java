@@ -1,4 +1,4 @@
-package de.tobiaslamm.httpsmathinator.mathinator;
+package de.dhbw.app.mathinator;
 
 import org.junit.Test;
 import static org.junit.Assert.*;

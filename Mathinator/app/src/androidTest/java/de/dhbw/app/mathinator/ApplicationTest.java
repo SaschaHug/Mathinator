@@ -1,4 +1,4 @@
-package de.tobiaslamm.httpsmathinator.mathinator;
+package de.dhbw.app.mathinator;
 
 import android.test.ActivityInstrumentationTestCase2;
 
@@ -9,7 +9,7 @@ public class ApplicationTest extends ActivityInstrumentationTestCase2 {
     private Solo solo;
 
     public ApplicationTest() {
-        super(Mathinator1.class);
+        super(Mathinator.class);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class ApplicationTest extends ActivityInstrumentationTestCase2 {
 
     public void testMathinator1Opened() throws Exception {
         // Check that MainActivity is opened succesfully
-        solo.assertCurrentActivity("Expected Main activity", "Mathinator1");
+        solo.assertCurrentActivity("Expected Main activity", "Mathinator");
     }
 
     public void testHelloWorldFound() throws Exception {
