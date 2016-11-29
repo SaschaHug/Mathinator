@@ -11,43 +11,36 @@
     tools:context="de.dhbw.app.mathinator.Mathinator">
 
     <Button
+        android:text="History"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/history_button"
+        android:onClick="ShowHistory"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        style="@android:style/Widget.Material.Button" />
+
+    <Button
+        android:text="Calculator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/calculator_button"
+        android:layout_below="@+id/history_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        style="@android:style/Widget.Material.Button" />
+
+    <Button
         android:text="Take a picture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="78dp"
-        android:onClick="TakeAPicture"/>
-
-    <Button
-        android:text="Show History"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button2"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="ShowHistory"/>
-
-    <TextView
-        android:text="Hello World!"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="12dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        android:id="@+id/textView" />
-
-    <Button
-        android:text="Manual Input"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/camera_button"
+        android:onClick="TakeAPicture"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="80dp"
-        android:id="@+id/calculator_button" />
+        android:layout_marginBottom="26dp"
+        android:textAppearance="@android:style/TextAppearance.Material.Button"
+        style="@android:style/Widget.Material.Button" />
 
 </RelativeLayout>

@@ -17,7 +17,8 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="23dp"
         android:id="@+id/button3"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        style="@android:style/Widget.Material.Button" />
 
     <EditText
         android:layout_width="wrap_content"
