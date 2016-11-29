@@ -8,6 +8,7 @@ import android.widget.Button;
 
 public class Mathinator extends AppCompatActivity {
 
+
     public Button calcButton;
 
     @Override
@@ -30,11 +31,9 @@ public class Mathinator extends AppCompatActivity {
         });
 
 
-
         showCalculator();
-
-
     }
+
 
     public void showCalculator()
     {
