@@ -10,6 +10,8 @@ public class Mathinator extends Activity {
 
 
     public Button calcButton;
+    public Button historyButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,11 @@ public class Mathinator extends Activity {
         });
 
 
+
+        // TODO: Methoden Umbennen?
+        // Die Menüs werden ja nicht direkt aufgerufen sonder es wird nur ein OnClickListener erzeugt...
         showCalculator();
+        showHistory();
     }
 
 
@@ -45,6 +51,17 @@ public class Mathinator extends Activity {
             }
         });
 
+    }
+
+    public void showHistory()
+    {
+        historyButton = (Button) findViewById(R.id.history_button);
+        historyButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent showHistory = new Intent(Mathinator.this, HistoryActivity.class);
+                startActivity(showHistory);
+            }
+        });
     }
 }
 
