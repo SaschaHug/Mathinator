@@ -34,7 +34,7 @@ public class HistoryActivity extends Activity {
 
     // Get singleton instance of database
     MathinatorDatabaseHelper databaseHelper = MathinatorDatabaseHelper.getInstance(this);
-        databaseHelper.deleteAllEntries();
+     //   databaseHelper.deleteAllEntries();
      //   databaseHelper.deleteAllEntries();
 
 
@@ -66,11 +66,11 @@ public class HistoryActivity extends Activity {
 
 
         // Find ListView to populate
-       // ListView lvItems = (ListView) findViewById(R.id.lvItems);
+       ListView lvItems = (ListView) findViewById(R.id.lvItems);
         // Setup cursor adapter using cursor from last step
-      // HistoryCursorAdapter historyAdapter = new HistoryCursorAdapter(this, historyCursor);
+        HistoryCursorAdapter historyAdapter = new HistoryCursorAdapter(this, historyCursor);
         // Attach cursor adapter to the ListView
-       // lvItems.setAdapter(historyAdapter);
+       lvItems.setAdapter(historyAdapter);
 
 
     }

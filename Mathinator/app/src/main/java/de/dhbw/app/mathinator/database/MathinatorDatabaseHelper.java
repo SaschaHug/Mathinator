@@ -35,7 +35,7 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
 
     // Database Info
     private static final String DATABASE_NAME = "mathinatorDatabase";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Table Names
     private static final String TABLE_HISTORY = "history";
@@ -60,7 +60,7 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_QUERIES_TABLE = "CREATE TABLE " + TABLE_HISTORY +
                 "(" +
-                KEY_HISTORY_ID + " _id INTEGER PRIMARY KEY AUTOINCREMENT," + // Define a primary key
+                KEY_HISTORY_ID + " _id INTEGER PRIMARY KEY," + // Define a primary key
                 KEY_HISTORY_EQUATION + " TEXT" +
                 ")";
 
@@ -111,7 +111,10 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
         try {
             // The user might already exist in the database (i.e. the same user created multiple posts).
             // TODO Anpassen. Einträge können eig nicht schon vorhanden sein, jeder Eintrag soll ja eine eindeutige ID bekommen
-            long entryId = addOrUpdateEntry(history);
+
+
+           // long entryId = addOrUpdateEntry(history);
+
             //long entryId = addOrUpdateEntry(history.id);
 
 

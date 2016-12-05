@@ -40,6 +40,7 @@ public class HistoryCursorAdapter extends CursorAdapter {
         // Populate fields with extracted properties
         //tvID.setText(id);
         tvEquation.setText(equation);
+
     }
 
 
