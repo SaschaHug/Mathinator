@@ -8,8 +8,8 @@ import android.widget.Button;
 
 public class Mathinator extends Activity {
 
-
     public Button calcButton;
+    public Button historyButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,17 +23,17 @@ public class Mathinator extends Activity {
             }
         });
 
-        final Button history_button = (Button) findViewById(R.id.history_button);
-        history_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setContentView(R.layout.activity_showhistory);
-            }
-        });
 
-
+        // TODO: Methoden Umbennen?
+        // Die Menüs werden ja nicht direkt aufgerufen sonder es wird nur ein OnClickListener erzeugt...
         showCalculator();
+        showHistory();
     }
 
+
+    /**
+     * Initialisiere onClickListener für Buttons
+     */
 
     public void showCalculator()
     {
@@ -44,7 +44,17 @@ public class Mathinator extends Activity {
                 startActivity(showCalc);
             }
         });
+    }
 
+    public void showHistory()
+    {
+        historyButton = (Button) findViewById(R.id.history_button);
+        historyButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent showHistory = new Intent(Mathinator.this, HistoryActivity.class);
+                startActivity(showHistory);
+            }
+        });
     }
 }
 
