@@ -41,13 +41,10 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_HISTORY = "history";
 
     // Post Table Columns
-    private static final String KEY_HISTORY_ID = "id";
+    private static final String KEY_HISTORY_ID = "_id";
     private static final String KEY_HISTORY_EQUATION = "equation";
 
 
-//    public MathinatorDatabaseHelper(Context context) {
-//        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-//    }
 
     // Called when the database connection is being configured.
     // Configure database settings for things like foreign key support, write-ahead logging, etc.
@@ -63,7 +60,7 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_QUERIES_TABLE = "CREATE TABLE " + TABLE_HISTORY +
                 "(" +
-                KEY_HISTORY_ID + " INTEGER PRIMARY KEY," + // Define a primary key
+                KEY_HISTORY_ID + " _id INTEGER PRIMARY KEY AUTOINCREMENT," + // Define a primary key
                 KEY_HISTORY_EQUATION + " TEXT" +
                 ")";
 
@@ -151,7 +148,7 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
         db.beginTransaction();
         try {
             ContentValues values = new ContentValues();
-            values.put(KEY_HISTORY_ID, history.id);
+            //values.put(KEY_HISTORY_ID, history.id);
             values.put(KEY_HISTORY_EQUATION, history.equation);
 
             // First try to update the user in case the user already exists in the database
@@ -234,7 +231,7 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
 
     // Update the entries's equation
     // TODO Wird eigentlich nicht benötigt.
-    public int updateUserProfilePicture(History history) {
+    public int updateEntry(History history) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
