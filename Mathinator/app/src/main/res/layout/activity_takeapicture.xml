@@ -3,4 +3,15 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <VideoView
+        android:layout_width="match_parent"
+        android:layout_height="466dp"
+        android:id="@+id/videoView" />
+
+    <Button
+        android:text="Hold Screen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Photo" />
+
 </LinearLayout>

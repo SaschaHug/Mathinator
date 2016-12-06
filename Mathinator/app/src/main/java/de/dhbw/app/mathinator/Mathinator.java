@@ -6,28 +6,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import static de.dhbw.app.mathinator.R.id.videoView;
+
 public class Mathinator extends Activity {
 
     public Button calcButton;
     public Button historyButton;
+    public Button pictureButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mathinator);
 
-        final Button camera_button = (Button) findViewById(R.id.camera_button);
-        camera_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setContentView(R.layout.activity_takeapicture);
-            }
-        });
-
 
         // TODO: Methoden Umbennen?
         // Die Menüs werden ja nicht direkt aufgerufen sonder es wird nur ein OnClickListener erzeugt...
         showCalculator();
         showHistory();
+        showPicture();
     }
 
 
@@ -53,6 +50,16 @@ public class Mathinator extends Activity {
             public void onClick(View v) {
                 Intent showHistory = new Intent(Mathinator.this, HistoryActivity.class);
                 startActivity(showHistory);
+            }
+        });
+    }
+    public void showPicture()
+    {
+        pictureButton = (Button) findViewById(R.id.camera_button);
+        pictureButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent showPicture = new Intent(Mathinator.this, PictureActivity.class);
+                startActivity(showPicture);
             }
         });
     }
