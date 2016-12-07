@@ -10,18 +10,15 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.dhbw.app.mathinator.Mathinator;
-
 import static android.content.ContentValues.TAG;
 
 /**
- * Created by tobi on 11/30/16.
- *
  * Die Klasse verwaltet DB-Operationen wie das Erstellen, Aktualisieren, Lesen oder Schreiben
- * Die Operationen werden mit Hilfe des SQLiteOpenHelper definiert
- * 
+ * Um mit der Datenbank zu interagieren muss an entsprechenden Stellen im Code eine Instanz des DBHelpers erzeugt werden:
+ * getInstance(Context context)
  */
 
+// TODO: Die Methoden getReadalbeDatabase() / getWritableDatabase() in eigene Threads auslagern
 
 /**
  * Important Note: The SQLite database is lazily initialized.
@@ -31,6 +28,18 @@ import static android.content.ContentValues.TAG;
  */
 
 public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
+
+    /**
+     * Constructor should be private to prevent direct instantiation.
+     * Make a call to the static method "getInstance()" instead.
+     * Ist beim Aufruf von getInstance noch keine DB vorhanden, so wird sie erzeugt.
+     * Existiert sie bereits, wird diese einfach zurückgegeben
+     */
+    private MathinatorDatabaseHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+
     private static MathinatorDatabaseHelper sInstance;
 
     // Database Info
@@ -41,7 +50,8 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_HISTORY = "history";
 
     // Post Table Columns
-    private static final String KEY_HISTORY_ID = "_id";
+    private static final String KEY_HISTORY_ID = "_id"; // muss _id heißen, da die Klasse 'Cursor' dieses benötigt um über Einträge zu iterieren
+
     private static final String KEY_HISTORY_EQUATION = "equation";
 
 
@@ -79,6 +89,7 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+
     /**
      * Hier wird das Singleton Entwurfsmuster erzeugt
      * Das bedeutet, dass es nur EIN Objekt der Klasse innerhalb der Applikation geben kann / soll
@@ -99,7 +110,6 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
      * CRUD = Create, Read, Update, Delete
      */
 
-
     // Insert a Entry into the database
     public void addEntry(History history) {
         // Create and/or open the database for writing
@@ -111,12 +121,8 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
         try {
             // The user might already exist in the database (i.e. the same user created multiple posts).
             // TODO Anpassen. Einträge können eig nicht schon vorhanden sein, jeder Eintrag soll ja eine eindeutige ID bekommen
-
-
-           // long entryId = addOrUpdateEntry(history);
-
-            //long entryId = addOrUpdateEntry(history.id);
-
+            // long entryId = addOrUpdateEntry(history);
+            // long entryId = addOrUpdateEntry(history.id);
 
             ContentValues values = new ContentValues();
             //values.put(KEY_POST_USER_ID_FK, userId);
@@ -142,7 +148,7 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
     // Unfortunately, there is a bug with the insertOnConflict method
     // (https://code.google.com/p/android/issues/detail?id=13045) so we need to fall back to the more
     // verbose option of querying for the user's primary key if we did an update.
-
+    // TODO: Notwendig?
     public long addOrUpdateEntry(History history) {
         // The database connection is cached so it's not expensive to call getWriteableDatabase() multiple times.
         SQLiteDatabase db = getWritableDatabase();
@@ -188,22 +194,22 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    // =============================================================================================
 
+    // Kann z.B. benutzt werden um über eine Liste aller Datensätze zu iterieren
     public List<History> getAllEntries() {
         List<History> entries = new ArrayList<>();
-
-        // SELECT * FROM HISTORY
 
         String HISTORY_SELECT_QUERY =
                   String.format("SELECT * FROM %s",
                           TABLE_HISTORY);
+        // Weitere Felder und Fremdschlüssel aktuell nicht vorhanden
         /*        String.format("SELECT * FROM %s LEFT OUTER JOIN %s ON %s.%s = %s.%s",
                         TABLE_POSTS,
                         TABLE_USERS,
                         TABLE_POSTS, KEY_POST_USER_ID_FK,
                         TABLE_USERS, KEY_USER_ID);
         */
+
 
         // "getReadableDatabase()" and "getWriteableDatabase()" return the same object (except under low
         // disk space scenarios)
@@ -229,10 +235,8 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
         return entries;
     }
 
-    //==============================================================================================
 
-
-    // Update the entries equation
+    // Update the entry
     // TODO Wird eigentlich nicht benötigt.
     public int updateEntry(History history) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -245,7 +249,6 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
                 new String[] { String.valueOf(history.id) });
     }
 
-    //==============================================================================================
 
 
 
@@ -261,19 +264,5 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
         } finally {
             db.endTransaction();
         }
-    }
-
-    //==============================================================================================
-
-
-
-    /**
-     * Constructor should be private to prevent direct instantiation.
-     * Make a call to the static method "getInstance()" instead.
-     * Ist beim Aufruf von getInstance noch keine DB vorhanden, so wird sie erzeugt.
-     * Existiert sie bereits, wird sie einfach zurückgegeben
-     */
-    private MathinatorDatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 }

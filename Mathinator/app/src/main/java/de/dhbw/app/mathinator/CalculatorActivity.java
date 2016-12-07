@@ -1,8 +1,6 @@
 package de.dhbw.app.mathinator;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,10 +23,6 @@ public class CalculatorActivity extends Activity {
         inputField = (EditText) findViewById(R.id.InputField);
 
         initOnclickListener();
-
-
-
-
     }
 
 
@@ -38,17 +32,19 @@ public class CalculatorActivity extends Activity {
         resultButton = (Button) findViewById(R.id.resultButton);
         resultButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 History newManualCalcEntry = new History();
                 newManualCalcEntry.equation = inputField.getText().toString();
+
+                // TODO: Prüfen ob die ID benötigt wird
                 newManualCalcEntry.id = "000";
 
                 Log.i("CalculatorActivity", " Value of InputField: " + inputField.getText().toString() );
 
+                // Hole Instanz des dbhelpers.
+                // Kontext muss 'CalculatorActivity.this' statt 'this' sein, da wir uns im onClick Listener befinden
 
                 MathinatorDatabaseHelper databaseHelper = MathinatorDatabaseHelper.getInstance(CalculatorActivity.this);
                 databaseHelper.addEntry(newManualCalcEntry);
-
             }
         });
     }

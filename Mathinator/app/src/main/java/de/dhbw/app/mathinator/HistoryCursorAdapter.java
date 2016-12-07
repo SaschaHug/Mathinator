@@ -34,9 +34,11 @@ public class HistoryCursorAdapter extends CursorAdapter {
         // Find fields to populate in inflated template
         //TextView tvID = (TextView) view.findViewById(R.id.tvID);
         TextView tvEquation= (TextView) view.findViewById(R.id.tvEquation);
+
         // Extract properties from cursor
         //String id = cursor.getString(cursor.getColumnIndexOrThrow("_id"));
         String equation = cursor.getString(cursor.getColumnIndexOrThrow("equation"));
+
         // Populate fields with extracted properties
         //tvID.setText(id);
         tvEquation.setText(equation);
