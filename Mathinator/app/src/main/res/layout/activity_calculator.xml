@@ -23,7 +23,6 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
         android:ems="10"
         android:layout_above="@+id/button3"
         android:layout_alignLeft="@+id/button3"
@@ -34,7 +33,8 @@
         android:textSize="18sp"
         android:textAlignment="center"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:inputType="text" />
 
     <TextView
         android:text="Hier sollte ein Ergebnis stehen"

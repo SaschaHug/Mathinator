@@ -232,7 +232,7 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
     //==============================================================================================
 
 
-    // Update the entries's equation
+    // Update the entries equation
     // TODO Wird eigentlich nicht benötigt.
     public int updateEntry(History history) {
         SQLiteDatabase db = this.getWritableDatabase();
