@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Mathinator</string>
+    <string name="foto">foto</string>
+    <string name="video">video</string>
 </resources>

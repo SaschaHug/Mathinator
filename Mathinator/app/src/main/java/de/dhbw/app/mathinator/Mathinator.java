@@ -3,10 +3,9 @@ package de.dhbw.app.mathinator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
-
-import static de.dhbw.app.mathinator.R.id.videoView;
 
 public class Mathinator extends Activity {
 
@@ -58,8 +57,11 @@ public class Mathinator extends Activity {
         pictureButton = (Button) findViewById(R.id.camera_button);
         pictureButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent showPicture = new Intent(Mathinator.this, PictureActivity.class);
-                startActivity(showPicture);
+                // Intent instantilieren
+                Intent intent = new Intent(
+                        MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+                // Activity starten
+                startActivity(intent);
             }
         });
     }
