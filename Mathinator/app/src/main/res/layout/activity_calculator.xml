@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="23dp"
-        android:id="@+id/button3"
+        android:id="@+id/resultButton"
         android:textSize="30sp"
         style="@android:style/Widget.Material.Button" />
 
@@ -24,9 +24,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:layout_above="@+id/button3"
-        android:layout_alignLeft="@+id/button3"
-        android:layout_alignStart="@+id/button3"
+        android:layout_above="@+id/resultButton"
+        android:layout_alignLeft="@+id/resultButton"
+        android:layout_alignStart="@+id/resultButton"
         android:layout_marginBottom="12dp"
         android:id="@+id/InputField"
         android:fontFamily="sans-serif"
@@ -42,8 +42,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/resultTextField"
         android:layout_below="@+id/InputField"
-        android:layout_toRightOf="@+id/button3"
-        android:layout_toEndOf="@+id/button3"
+        android:layout_toRightOf="@+id/resultButton"
+        android:layout_toEndOf="@+id/resultButton"
         android:layout_marginLeft="18dp"
         android:layout_marginStart="18dp"
         android:textAppearance="@android:style/TextAppearance.Material.Large" />
