@@ -27,10 +27,11 @@ public class HistoryActivity extends Activity {
          * Im Folgenden werden Testdaten für die SQLite DB erzeugt
          */
 
+        /**
     History sampleEntry = new History();
     sampleEntry.id = "0";
     sampleEntry.equation = "1+2*(3/4)^5";
-
+*/
 
     // Get singleton instance of database
     MathinatorDatabaseHelper databaseHelper = MathinatorDatabaseHelper.getInstance(this);
@@ -40,16 +41,16 @@ public class HistoryActivity extends Activity {
 
 
    // Add sample post to the database
-    databaseHelper.addEntry(sampleEntry);
+    //databaseHelper.addEntry(sampleEntry);
 
     // Get all posts from database
-    List<History> entries = databaseHelper.getAllEntries();
+   /** List<History> entries = databaseHelper.getAllEntries();
     for (History entry : entries) {
         // do something
         System.out.println("ID: " + entry.id);
         System.out.println("EQ: " + entry.equation);
     }
-
+    */
 
         // Get access to the underlying writeable database
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
