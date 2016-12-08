@@ -17,8 +17,10 @@
         android:id="@+id/tvEquation"
         android:layout_width="155dp"
         android:layout_height="wrap_content"
-        android:text="Gleichung"
+        android:text="History"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textAlignment="viewStart" />
+        android:textAlignment="viewStart"
+        android:textStyle="normal|bold"
+        android:textAllCaps="false" />
 
 </RelativeLayout>
