@@ -61,7 +61,6 @@ public class CalculatorActivity extends Activity {
 
                 try {
                     // Um unsere Zeichenkette verarbeiten zu können muss diese eingelesen werden.
-                    // Das geschieht über ANTLRInputStream, welcher (aktuell) die input Datei über ANTLRFileStream einliest
                     ANTLRInputStream input = null;
                     try {
                         input = new ANTLRInputStream((inputField.getText().toString()));

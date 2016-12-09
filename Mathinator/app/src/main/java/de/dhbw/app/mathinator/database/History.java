@@ -7,4 +7,5 @@ package de.dhbw.app.mathinator.database;
 public class History {
     public String id;
     public String equation;
+    public String result;
 }
