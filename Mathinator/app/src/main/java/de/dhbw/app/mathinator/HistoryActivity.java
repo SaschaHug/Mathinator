@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -79,6 +80,18 @@ public class HistoryActivity extends Activity {
                 Intent intent = new Intent(getBaseContext(), HistoryEntryActivity.class);
                 intent.putExtra("KEY_HISTORY_ID", position);
                 startActivity(intent);
+            }
+        });
+
+
+        // Einträge sollen löschbar sein (Langer Klick)
+
+        lvItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                // TODO Implementieren!
+                //Toast.makeText(HistoryActivity.class, "Long Clicked Trigger: ", Toast.LENGTH_LONG).show();
+                return true;
             }
         });
 
