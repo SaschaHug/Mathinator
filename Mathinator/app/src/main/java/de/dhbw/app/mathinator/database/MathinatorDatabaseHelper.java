@@ -44,7 +44,7 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
 
     // Database Info
     private static final String DATABASE_NAME = "mathinatorDatabase";
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 10;
 
     // Table Names
     private static final String TABLE_HISTORY = "history";
@@ -70,7 +70,7 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_QUERIES_TABLE = "CREATE TABLE " + TABLE_HISTORY +
                 "(" +
-                KEY_HISTORY_ID + " _id INTEGER PRIMARY KEY," + // Define a primary key
+                KEY_HISTORY_ID + " INTEGER PRIMARY KEY," + // Define a primary key
                 KEY_HISTORY_EQUATION + " TEXT," +
                 KEY_HISTORY_RESULT + " TEXT" +
                 ")";
@@ -165,7 +165,7 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
 
             // First try to update the user in case the user already exists in the database
             // This assumes userNames are unique
-            int rows = db.update(TABLE_HISTORY, values, KEY_HISTORY_ID + "= ?", new String[]{history.id});
+            int rows = db.update(TABLE_HISTORY, values, KEY_HISTORY_ID + "= ?", new String[]{String.valueOf(history.id)});
 
             // Check if update succeeded
             if (rows == 1) {
@@ -222,7 +222,7 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
             if (cursor.moveToFirst()) {
                 do {
                     History newEntry = new History();
-                    newEntry.id = cursor.getString(cursor.getColumnIndex(KEY_HISTORY_ID));
+                    newEntry.id = cursor.getInt(cursor.getColumnIndex(KEY_HISTORY_ID));
                     newEntry.equation = cursor.getString(cursor.getColumnIndex(KEY_HISTORY_EQUATION));
                     newEntry.result = cursor.getString(cursor.getColumnIndex(KEY_HISTORY_RESULT));
 
@@ -253,6 +253,25 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
         return db.update(TABLE_HISTORY, values, KEY_HISTORY_ID + " = ?",
                 new String[] { String.valueOf(history.id) });
     }
+
+    // TODO ErrorHandling
+    public void deleteEntry(int id) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.beginTransaction();
+        try {
+            Log.i("MathinatorDBHelper: ","Value of ID: " + id);
+            //db.execSQL("DELETE FROM " + TABLE_HISTORY + " WHERE _id = '"+id+"'");
+            db.delete(TABLE_HISTORY, KEY_HISTORY_ID + "=?",
+                    new String[] { String.valueOf(id) });
+                 //   new String[]{ "pi" });
+          db.setTransactionSuccessful();
+        } catch (Exception e) {
+            e.printStackTrace();
+      } finally {
+           db.endTransaction();
+        }
+        }
+
 
 
 

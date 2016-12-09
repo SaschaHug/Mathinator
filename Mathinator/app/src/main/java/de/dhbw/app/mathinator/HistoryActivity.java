@@ -1,11 +1,17 @@
 package de.dhbw.app.mathinator;
 
 import android.app.Activity;
+import android.app.LoaderManager;
 import android.content.Intent;
+import android.content.Loader;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -17,10 +23,66 @@ import de.dhbw.app.mathinator.database.History;
 import de.dhbw.app.mathinator.database.MathinatorDatabaseHelper;
 
 public class HistoryActivity extends Activity {
+    // Tracks current contextual action mode
+    private ActionMode currentActionMode;
+
+    // Tracks current menu item
+    public int currentListItemIndex;
+
+    // Define the callback when ActionMode is activated
+    private ActionMode.Callback modeCallBack = new ActionMode.Callback() {
+        // Called when the action mode is created; startActionMode() was called
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            mode.setTitle("Actions");
+            mode.getMenuInflater().inflate(R.menu.actions_textview, menu);
+            return true;
+        }
+
+        // Called each time the action mode is shown.
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false; // Return false if nothing is done
+        }
+
+        // Called when the user selects a contextual menu item
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            switch (item.getItemId()) {
+            //    case R.id.menu_edit:
+            //        Toast.makeText(MainActivity.this, "Editing!", Toast.LENGTH_SHORT).show();
+            //        mode.finish(); // Action picked, so close the contextual menu
+            //        return true;
+                case R.id.menu_delete:
+                    MathinatorDatabaseHelper databaseHelper = MathinatorDatabaseHelper.getInstance(HistoryActivity.this);
+                    // TODO: Trigger the deletion here
+                    Toast.makeText(HistoryActivity.this, "Deleting!", Toast.LENGTH_SHORT).show();
+                    databaseHelper.deleteEntry(currentListItemIndex);
+                    //databaseHelper.deleteAllEntries();
+                    mode.finish(); // Action picked, so close the contextual menu
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        // Called when the user exits the action mode
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            currentActionMode = null; // Clear current action mode
+        }
+    };
+
+
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         // TODO: Wie muss der Übergabeparameter sein?
         MathinatorDatabaseHelper.getInstance(this);
@@ -38,30 +100,25 @@ public class HistoryActivity extends Activity {
 
     // Add sample post to the database
     // databaseHelper.addEntry(sampleEntry);
-
     // Get all posts from database
-   /** List<History> entries = databaseHelper.getAllEntries();
+    List<History> entries = databaseHelper.getAllEntries();
     for (History entry : entries) {
-        // do something
         System.out.println("ID: " + entry.id);
         System.out.println("EQ: " + entry.equation);
+        System.out.println("Re: " + entry.result);
     }
-    */
 
         // Get access to the underlying writeable database
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
         // Query for items from the database and get a cursor back
-
         final Cursor historyCursor = db.rawQuery("SELECT * FROM history", null);
+
+      /**
         Log.i("HistoryActivity", "Cursor(0)" + historyCursor.getColumnName(0));
         Log.i("HistoryActivity", "Cursor(1)" + historyCursor.getColumnName(1));
         Log.i("HistoryActivity", "Cursor(2)" + historyCursor.getColumnName(2));
-
         Log.i("HistoryActivity", "COLUMN COUNT. " + historyCursor.getColumnCount());
-
-
-
-
+*/
 
         // Find ListView to populate
        ListView lvItems = (ListView) findViewById(R.id.lvItems);
@@ -69,6 +126,7 @@ public class HistoryActivity extends Activity {
         final HistoryCursorAdapter historyAdapter = new HistoryCursorAdapter(this, historyCursor);
         // Attach cursor adapter to the ListView
        lvItems.setAdapter(historyAdapter);
+
 
 
         // Einträge sollen anklickbar sein
@@ -80,23 +138,29 @@ public class HistoryActivity extends Activity {
                 Intent intent = new Intent(getBaseContext(), HistoryEntryActivity.class);
                 intent.putExtra("KEY_HISTORY_ID", position);
                 startActivity(intent);
+
+
+                // TODO Notwendig?
+                historyCursor.close();
             }
         });
 
 
-        // Einträge sollen löschbar sein (Langer Klick)
-
+        // Einträge sollen löschbar sein (langer Klick)
         lvItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 // TODO Implementieren!
-                //Toast.makeText(HistoryActivity.class, "Long Clicked Trigger: ", Toast.LENGTH_LONG).show();
+                if (currentActionMode != null) { return false; }
+                // TODO: Hier wird ein long auf int gecastet. Fehleranfällig?
+                currentListItemIndex = (int) id;//historyCursor.getPosition();//position;
+                currentActionMode = startActionMode(modeCallBack);
+                view.setSelected(true);
                 return true;
             }
         });
 
     }
-
 
 
 }

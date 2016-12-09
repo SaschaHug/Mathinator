@@ -69,12 +69,9 @@ public class CalculatorActivity extends Activity {
                     // Die Klasse CalculatorBaseVisitorImpl geht die einzelnen Nodes des ParseTrees durch und wertet sie aus
                     CalculatorBaseVisitorImpl calcVisitor = new CalculatorBaseVisitorImpl();
                     Double result = calcVisitor.visit(tree);
-                    //System.out.println("Result: " + result);
 
                     //resultTextField.setText(inputField.toString() + " = " + result);
                     resultTextField.setText(result.toString());
-
-                    //Value value = new MyVisitor().visit(tree);
 
                     Log.i("CalculatorActivity ", "Result: " + result);
                 } catch (Exception e) {
@@ -85,7 +82,7 @@ public class CalculatorActivity extends Activity {
                 // Dattensätze in die DB schreiben
                 History newManualCalcEntry = new History();
                 // TODO: Prüfen ob die ID benötigt wird
-                newManualCalcEntry.id = "000";
+                //newManualCalcEntry.id = "000";
                 newManualCalcEntry.equation = inputField.getText().toString();
                 newManualCalcEntry.result = resultTextField.getText().toString();
 
