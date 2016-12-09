@@ -44,15 +44,15 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
 
     // Database Info
     private static final String DATABASE_NAME = "mathinatorDatabase";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     // Table Names
     private static final String TABLE_HISTORY = "history";
 
     // Post Table Columns
     private static final String KEY_HISTORY_ID = "_id"; // muss _id heißen, da die Klasse 'Cursor' dieses benötigt um über Einträge zu iterieren
-
     private static final String KEY_HISTORY_EQUATION = "equation";
+    private static final String KEY_HISTORY_RESULT = "result";
 
 
 
@@ -71,7 +71,8 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
         String CREATE_QUERIES_TABLE = "CREATE TABLE " + TABLE_HISTORY +
                 "(" +
                 KEY_HISTORY_ID + " _id INTEGER PRIMARY KEY," + // Define a primary key
-                KEY_HISTORY_EQUATION + " TEXT" +
+                KEY_HISTORY_EQUATION + " TEXT," +
+                KEY_HISTORY_RESULT + " TEXT" +
                 ")";
 
         db.execSQL(CREATE_QUERIES_TABLE);
@@ -129,6 +130,7 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
             //values.put(KEY_HISTORY_ID, entryId);
             //values.put(KEY_HISTORY_ID, history.id);
             values.put(KEY_HISTORY_EQUATION, history.equation);
+            values.put(KEY_HISTORY_RESULT, history.result);
             //values.put(KEY_POST_TEXT, post.text);
 
             // Notice how we haven't specified the primary key. SQLite auto increments the primary key column.
@@ -159,6 +161,7 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             //values.put(KEY_HISTORY_ID, history.id);
             values.put(KEY_HISTORY_EQUATION, history.equation);
+            values.put(KEY_HISTORY_RESULT, history.result);
 
             // First try to update the user in case the user already exists in the database
             // This assumes userNames are unique
@@ -221,6 +224,7 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
                     History newEntry = new History();
                     newEntry.id = cursor.getString(cursor.getColumnIndex(KEY_HISTORY_ID));
                     newEntry.equation = cursor.getString(cursor.getColumnIndex(KEY_HISTORY_EQUATION));
+                    newEntry.result = cursor.getString(cursor.getColumnIndex(KEY_HISTORY_RESULT));
 
                     entries.add(newEntry);
                 } while(cursor.moveToNext());
@@ -243,6 +247,7 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_HISTORY_EQUATION, history.equation);
+        values.put(KEY_HISTORY_RESULT, history.result);
 
         // Updating profile picture url for user with that userName
         return db.update(TABLE_HISTORY, values, KEY_HISTORY_ID + " = ?",

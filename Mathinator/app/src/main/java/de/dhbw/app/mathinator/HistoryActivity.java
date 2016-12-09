@@ -56,10 +56,11 @@ public class HistoryActivity extends Activity {
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
         // Query for items from the database and get a cursor back
 
-        //TODO CursorAdapter benötigt Spalte _id statt id
         Cursor historyCursor = db.rawQuery("SELECT * FROM history", null);
         Log.i("HistoryActivity", "Cursor(0)" + historyCursor.getColumnName(0));
         Log.i("HistoryActivity", "Cursor(1)" + historyCursor.getColumnName(1));
+        Log.i("HistoryActivity", "Cursor(2)" + historyCursor.getColumnName(2));
+
         Log.i("HistoryActivity", "COLUMN COUNT. " + historyCursor.getColumnCount());
 
 

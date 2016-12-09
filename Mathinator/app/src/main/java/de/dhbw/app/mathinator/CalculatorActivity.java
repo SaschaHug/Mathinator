@@ -40,25 +40,20 @@ public class CalculatorActivity extends Activity {
         resultButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 History newManualCalcEntry = new History();
-                newManualCalcEntry.equation = inputField.getText().toString();
-
                 // TODO: Prüfen ob die ID benötigt wird
                 newManualCalcEntry.id = "000";
+                newManualCalcEntry.equation = inputField.getText().toString();
+                newManualCalcEntry.result = resultTextField.getText().toString();
 
                 Log.i("CalculatorActivity", " Value of InputField: " + inputField.getText().toString() );
 
                 // Hole Instanz des dbhelpers.
                 // Kontext muss 'CalculatorActivity.this' statt 'this' sein, da wir uns im onClick Listener befinden
-
                 MathinatorDatabaseHelper databaseHelper = MathinatorDatabaseHelper.getInstance(CalculatorActivity.this);
                 databaseHelper.addEntry(newManualCalcEntry);
 
 
-                //==================================================================================
-
-
-
-
+                // ANTLR Parser
                 try {
                     // Um unsere Zeichenkette verarbeiten zu können muss diese eingelesen werden.
                     ANTLRInputStream input = null;
@@ -81,7 +76,6 @@ public class CalculatorActivity extends Activity {
 
                     // ParseTree erstellen und Startregel angeben
                     ParseTree tree = parser.input();
-
 
                     // Die Klasse CalculatorBaseVisitorImpl geht die einzelnen Nodes des ParseTrees durch und wertet sie aus
                     CalculatorBaseVisitorImpl calcVisitor = new CalculatorBaseVisitorImpl();
