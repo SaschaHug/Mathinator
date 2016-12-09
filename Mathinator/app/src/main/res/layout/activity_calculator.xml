@@ -37,15 +37,14 @@
         android:inputType="text" />
 
     <TextView
-        android:text="Hier sollte ein Ergebnis stehen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/resultTextField"
         android:layout_below="@+id/InputField"
-        android:layout_toRightOf="@+id/resultButton"
         android:layout_toEndOf="@+id/resultButton"
         android:layout_marginLeft="18dp"
-        android:layout_marginStart="18dp"
-        android:textAppearance="@android:style/TextAppearance.Material.Large" />
+        android:textAppearance="@android:style/TextAppearance.Material.Large"
+        android:layout_alignBottom="@+id/resultButton"
+        android:textSize="24sp" />
 
 </RelativeLayout>

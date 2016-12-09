@@ -1,10 +1,13 @@
 package de.dhbw.app.mathinator;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.List;
@@ -22,26 +25,18 @@ public class HistoryActivity extends Activity {
         MathinatorDatabaseHelper.getInstance(this);
         setContentView(R.layout.activity_history);
 
-
-        /**
-         * Im Folgenden werden Testdaten für die SQLite DB erzeugt
-         */
-
-        /**
+        //Im Folgenden werden Testdaten für die SQLite DB erzeugt
+    /**
     History sampleEntry = new History();
     sampleEntry.id = "0";
     sampleEntry.equation = "1+2*(3/4)^5";
-*/
+    */
 
     // Get singleton instance of database
     MathinatorDatabaseHelper databaseHelper = MathinatorDatabaseHelper.getInstance(this);
-     //   databaseHelper.deleteAllEntries();
-     //   databaseHelper.deleteAllEntries();
 
-
-
-   // Add sample post to the database
-    //databaseHelper.addEntry(sampleEntry);
+    // Add sample post to the database
+    // databaseHelper.addEntry(sampleEntry);
 
     // Get all posts from database
    /** List<History> entries = databaseHelper.getAllEntries();
@@ -56,7 +51,7 @@ public class HistoryActivity extends Activity {
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
         // Query for items from the database and get a cursor back
 
-        Cursor historyCursor = db.rawQuery("SELECT * FROM history", null);
+        final Cursor historyCursor = db.rawQuery("SELECT * FROM history", null);
         Log.i("HistoryActivity", "Cursor(0)" + historyCursor.getColumnName(0));
         Log.i("HistoryActivity", "Cursor(1)" + historyCursor.getColumnName(1));
         Log.i("HistoryActivity", "Cursor(2)" + historyCursor.getColumnName(2));
@@ -70,12 +65,26 @@ public class HistoryActivity extends Activity {
         // Find ListView to populate
        ListView lvItems = (ListView) findViewById(R.id.lvItems);
         // Setup cursor adapter using cursor from last step
-        HistoryCursorAdapter historyAdapter = new HistoryCursorAdapter(this, historyCursor);
+        final HistoryCursorAdapter historyAdapter = new HistoryCursorAdapter(this, historyCursor);
         // Attach cursor adapter to the ListView
        lvItems.setAdapter(historyAdapter);
 
 
+        // Einträge sollen anklickbar sein
+        lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Log.i("TEST", "Position: " + position + " CursorAdapter Pos.: " + historyCursor.getPosition());
+                //Übergebe ID des geklickten ListView Items
+                Intent intent = new Intent(getBaseContext(), HistoryEntryActivity.class);
+                intent.putExtra("KEY_HISTORY_ID", position);
+                startActivity(intent);
+            }
+        });
+
     }
+
+
 
 }
 

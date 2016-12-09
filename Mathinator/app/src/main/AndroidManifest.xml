@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".CalculatorActivity" />
-        <activity android:name=".HistoryActivity"/>
+        <activity android:name=".HistoryActivity" />
+        <activity android:name=".HistoryEntryActivity"></activity>
     </application>
 
 </manifest>

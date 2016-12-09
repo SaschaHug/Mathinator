@@ -9,18 +9,32 @@
         android:id="@+id/lvItems"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tvEquation"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tvEquation" />
 
     <TextView
         android:id="@+id/tvEquation"
         android:layout_width="155dp"
         android:layout_height="wrap_content"
-        android:text="History"
+        android:text="Equation"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textAlignment="viewStart"
         android:textStyle="normal|bold"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tvResult"
+        android:layout_height="wrap_content"
+        android:text="Result"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAlignment="textEnd"
+        android:textStyle="normal|bold"
+        android:textAllCaps="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:textSize="18sp"
+        android:layout_width="175dp" />
 
 </RelativeLayout>
