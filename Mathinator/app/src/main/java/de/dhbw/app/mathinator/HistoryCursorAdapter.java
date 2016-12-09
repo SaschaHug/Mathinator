@@ -8,9 +8,6 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
-/**
- * Created by tobi on 12/5/16.
- */
 
 public class HistoryCursorAdapter extends CursorAdapter {
     public HistoryCursorAdapter(Context context, Cursor cursor) {

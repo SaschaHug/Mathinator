@@ -60,6 +60,24 @@ public class HistoryActivity extends Activity {
                     databaseHelper.deleteEntry(currentListItemIndex);
                     //databaseHelper.deleteAllEntries();
                     mode.finish(); // Action picked, so close the contextual menu
+
+
+                    /**
+                     * Damit die ListView sich automatisch aktualisiert sobald ein Eintrag
+                     * gelöscht wird, erzeugen wir momentan einfach einen neuen Cursor.
+                     * TODO: Wird der alte Cursor geschlossen? Performance? Fehleranfällig?
+                     * Sauber gestalten!!!
+                     */
+                    SQLiteDatabase db = databaseHelper.getWritableDatabase();
+                    final Cursor historyCursor = db.rawQuery("SELECT * FROM history", null);
+                    ListView lvItems = (ListView) findViewById(R.id.lvItems);
+                    final HistoryCursorAdapter historyAdapter = new HistoryCursorAdapter(HistoryActivity.this, historyCursor);
+                    lvItems.setAdapter(historyAdapter);
+
+
+                    // Startet die Activity einfach neu, damit sich der ListView aktualisiert....
+                    // finish();
+                    // startActivity(getIntent());
                     return true;
                 default:
                     return false;
@@ -155,6 +173,8 @@ public class HistoryActivity extends Activity {
                 // TODO: Hier wird ein long auf int gecastet. Fehleranfällig?
                 currentListItemIndex = (int) id;//historyCursor.getPosition();//position;
                 currentActionMode = startActionMode(modeCallBack);
+
+
                 view.setSelected(true);
                 return true;
             }
