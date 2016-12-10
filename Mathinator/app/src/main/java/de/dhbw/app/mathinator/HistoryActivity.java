@@ -22,6 +22,25 @@ import java.util.List;
 import de.dhbw.app.mathinator.database.History;
 import de.dhbw.app.mathinator.database.MathinatorDatabaseHelper;
 
+
+/**
+ * Diese Klasse implementiert das History-Menü.
+ * Es wird eine ListView erzeugt, welche mit Daten aus der DB befüllt wird.
+ * Dazu holen wir uns die Singleton-Instanz unseres DB-Helpers
+ * (Singleton: dient dem Zweck, dass es über die gesamte App nur ein einziges Objekt der Datenbank gibt.
+ * Gäbe es mehrere, wäre das anfällig für Konflikte beim Schreiben / Lesen)
+ *
+ * Einträge sind klickbar und starten ein neues Fenster welches die Daten des ausgewählten Eintrages im Detail darstellen.
+ * Dies wird über einen onClickListener realisiert.
+ * Der übergibt auch den jeweiligen Primary Key des Datensatzes an HistoryEntryActivity.
+ *
+ * Zusätzlich gibt es einen ActionMode, der es dem User erlaubt bestimmte Aktionen innerhalb der Activity auszuführen.
+ * In unserem Fall soll es möglich sein Einträge zu löschen.
+ * Ist dies geschehen wird der Cursor neu erzeugt.
+ * Der Cursor wird dazu verwendet über eine Liste aller Datensätze zu iterieren, bzw in diesem Fall um sie neu auszulesen.
+ *
+ */
+
 public class HistoryActivity extends Activity {
     // Tracks current contextual action mode
     private ActionMode currentActionMode;

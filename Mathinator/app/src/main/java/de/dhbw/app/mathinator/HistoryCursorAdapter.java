@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
+/**
+ * Diese Klasse ist ein Adapter. Sie legt fest wie die HistoryActivity mit Daten versorgt wird
+ * (Über einen Cursor [siehe HistoryActivity] für die Erklärung)
+ */
 
 public class HistoryCursorAdapter extends CursorAdapter {
     public HistoryCursorAdapter(Context context, Cursor cursor) {

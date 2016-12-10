@@ -7,6 +7,11 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * Einstiegspunkt unserer App.
+ * Es werden Buttons initialisert und die zugehörigen onClickListener gestartet
+ */
+
 public class Mathinator extends Activity {
 
     public Button calcButton;
