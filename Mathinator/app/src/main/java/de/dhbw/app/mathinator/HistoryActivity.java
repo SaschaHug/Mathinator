@@ -159,7 +159,7 @@ public class HistoryActivity extends Activity {
 
 
                 // TODO Notwendig?
-                historyCursor.close();
+                //historyCursor.close();
             }
         });
 
@@ -168,7 +168,9 @@ public class HistoryActivity extends Activity {
         lvItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO Implementieren!
+
+                // TODO: Warum wird der Cursor hier beendet?
+                historyCursor.close();
                 if (currentActionMode != null) { return false; }
                 // TODO: Hier wird ein long auf int gecastet. Fehleranfällig?
                 currentListItemIndex = (int) id;//historyCursor.getPosition();//position;

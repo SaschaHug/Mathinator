@@ -11,30 +11,29 @@
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/tvEquation" />
+        android:layout_below="@+id/tvEquation"
+        android:cacheColorHint="@color/accent_material_dark"
+        android:background="@color/background_floating_material_dark" />
 
     <TextView
         android:id="@+id/tvEquation"
         android:layout_width="155dp"
         android:layout_height="wrap_content"
         android:text="Equation"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textAlignment="viewStart"
-        android:textStyle="normal|bold"
-        android:textAllCaps="false"
+        android:textAppearance="@android:style/TextAppearance.Material.Large"
+        android:textColor="@color/background_floating_material_light"
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/tvResult"
         android:layout_height="wrap_content"
         android:text="Result"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textAlignment="textEnd"
-        android:textStyle="normal|bold"
-        android:textAllCaps="false"
+        android:textAppearance="@android:style/TextAppearance.Material.Large"
+        android:layout_width="175dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:textSize="18sp"
-        android:layout_width="175dp" />
+        android:textColor="@color/background_floating_material_light"
+        android:textAlignment="textEnd"
+        android:textSize="18sp" />
 
 </RelativeLayout>

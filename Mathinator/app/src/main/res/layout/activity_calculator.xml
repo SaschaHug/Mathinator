@@ -10,41 +10,41 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="de.dhbw.app.mathinator.CalculatorActivity">
 
-    <Button
-        android:text="="
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="23dp"
-        android:id="@+id/resultButton"
-        android:textSize="30sp"
-        style="@android:style/Widget.Material.Button" />
+        android:id="@+id/resultTextField"
+        android:layout_toEndOf="@+id/resultButton"
+        android:layout_marginLeft="18dp"
+        android:textAppearance="@android:style/TextAppearance.Material.Large"
+        android:layout_alignBottom="@+id/resultButton"
+        android:textSize="24sp"
+        android:textColor="@color/accent_material_light"
+        android:layout_alignTop="@+id/resultButton" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:layout_above="@+id/resultButton"
-        android:layout_alignLeft="@+id/resultButton"
-        android:layout_alignStart="@+id/resultButton"
-        android:layout_marginBottom="12dp"
         android:id="@+id/InputField"
         android:fontFamily="sans-serif"
         android:textSize="18sp"
         android:textAlignment="center"
-        android:layout_alignParentRight="true"
+        android:inputType="text"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:inputType="text" />
+        android:textColor="@color/accent_material_light" />
 
-    <TextView
+    <Button
+        android:text="="
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/resultTextField"
+        android:id="@+id/resultButton"
+        android:textSize="30sp"
+        style="@android:style/Widget.Material.Button"
         android:layout_below="@+id/InputField"
-        android:layout_toEndOf="@+id/resultButton"
-        android:layout_marginLeft="18dp"
-        android:textAppearance="@android:style/TextAppearance.Material.Large"
-        android:layout_alignBottom="@+id/resultButton"
-        android:textSize="24sp" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="40dp" />
 
 </RelativeLayout>
