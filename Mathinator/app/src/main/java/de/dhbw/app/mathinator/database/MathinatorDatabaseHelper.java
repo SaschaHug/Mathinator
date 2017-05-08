@@ -112,7 +112,7 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
      */
 
     // Insert a Entry into the database
-    public void addEntry(History history) {
+    public boolean addEntry(History history) {
         // Create and/or open the database for writing
         SQLiteDatabase db = getWritableDatabase();
 
@@ -141,6 +141,7 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
         } finally {
             db.endTransaction();
         }
+        return true;
     }
 
 
@@ -255,7 +256,7 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
     }
 
     // TODO ErrorHandling
-    public void deleteEntry(int id) {
+    public boolean deleteEntry(int id) {
         SQLiteDatabase db = getWritableDatabase();
         db.beginTransaction();
         try {
@@ -270,6 +271,7 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
       } finally {
            db.endTransaction();
         }
+        return true;
         }
 
 
