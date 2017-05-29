@@ -53,6 +53,7 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_HISTORY_ID = "_id"; // muss _id heißen, da die Klasse 'Cursor' dieses benötigt um über Einträge zu iterieren
     private static final String KEY_HISTORY_EQUATION = "equation";
     private static final String KEY_HISTORY_RESULT = "result";
+    //private boolean KEY_HISTORY_FIRST_START = false;
 
 
 
@@ -74,7 +75,7 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
                 KEY_HISTORY_EQUATION + " TEXT," +
                 KEY_HISTORY_RESULT + " TEXT" +
                 ")";
-
+      //  KEY_HISTORY_FIRST_START = true;
         db.execSQL(CREATE_QUERIES_TABLE);
     }
 
@@ -151,53 +152,6 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
     // Unfortunately, there is a bug with the insertOnConflict method
     // (https://code.google.com/p/android/issues/detail?id=13045) so we need to fall back to the more
     // verbose option of querying for the user's primary key if we did an update.
-    // TODO: Notwendig?
-    public long addOrUpdateEntry(History history) {
-        // The database connection is cached so it's not expensive to call getWriteableDatabase() multiple times.
-        SQLiteDatabase db = getWritableDatabase();
-        long userId = -1;
-
-        db.beginTransaction();
-        try {
-            ContentValues values = new ContentValues();
-            //values.put(KEY_HISTORY_ID, history.id);
-            values.put(KEY_HISTORY_EQUATION, history.equation);
-            values.put(KEY_HISTORY_RESULT, history.result);
-
-            // First try to update the user in case the user already exists in the database
-            // This assumes userNames are unique
-            int rows = db.update(TABLE_HISTORY, values, KEY_HISTORY_ID + "= ?", new String[]{String.valueOf(history.id)});
-
-            // Check if update succeeded
-            if (rows == 1) {
-                // Get the primary key of the user we just updated
-                String usersSelectQuery = String.format("SELECT %s FROM %s WHERE %s = ?",
-                        KEY_HISTORY_ID, TABLE_HISTORY, KEY_HISTORY_EQUATION);
-                Cursor cursor = db.rawQuery(usersSelectQuery, new String[]{String.valueOf(history.equation)});
-                try {
-                    if (cursor.moveToFirst()) {
-                        userId = cursor.getInt(0);
-                        db.setTransactionSuccessful();
-                    }
-                } finally {
-                    if (cursor != null && !cursor.isClosed()) {
-                        cursor.close();
-                    }
-                }
-            } else {
-                // user with this userName did not already exist, so insert new user
-                userId = db.insertOrThrow(TABLE_HISTORY, null, values);
-                db.setTransactionSuccessful();
-            }
-        } catch (Exception e) {
-            Log.d(TAG, "Error while trying to add or update user");
-        } finally {
-            db.endTransaction();
-        }
-        return userId;
-    }
-
-
 
     // Kann z.B. benutzt werden um über eine Liste aller Datensätze zu iterieren
     public List<History> getAllEntries() {
@@ -240,21 +194,6 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
         return entries;
     }
 
-
-    // Update the entry
-    // TODO Wird eigentlich nicht benötigt.
-    public int updateEntry(History history) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(KEY_HISTORY_EQUATION, history.equation);
-        values.put(KEY_HISTORY_RESULT, history.result);
-
-        // Updating profile picture url for user with that userName
-        return db.update(TABLE_HISTORY, values, KEY_HISTORY_ID + " = ?",
-                new String[] { String.valueOf(history.id) });
-    }
-
     // TODO ErrorHandling
     public boolean deleteEntry(int id) {
         SQLiteDatabase db = getWritableDatabase();
@@ -264,7 +203,6 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
             //db.execSQL("DELETE FROM " + TABLE_HISTORY + " WHERE _id = '"+id+"'");
             db.delete(TABLE_HISTORY, KEY_HISTORY_ID + "=?",
                     new String[] { String.valueOf(id) });
-                 //   new String[]{ "pi" });
           db.setTransactionSuccessful();
         } catch (Exception e) {
             e.printStackTrace();
@@ -273,22 +211,4 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
         }
         return true;
         }
-
-
-
-
-
-    public void deleteAllEntries() {
-        SQLiteDatabase db = getWritableDatabase();
-        db.beginTransaction();
-        try {
-            // Order of deletions is important when foreign key relationships exist.
-            db.delete(TABLE_HISTORY, null, null);
-            db.setTransactionSuccessful();
-        } catch (Exception e) {
-            Log.d(TAG, "Error while trying to delete all posts and users");
-        } finally {
-            db.endTransaction();
-        }
     }
-}
