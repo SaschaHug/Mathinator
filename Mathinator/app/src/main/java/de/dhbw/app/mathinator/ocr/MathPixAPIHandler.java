@@ -23,8 +23,8 @@ public class MathPixAPIHandler {
             Request request = new Request.Builder()
                     .url("https://api.mathpix.com/v3/latex")
                     .addHeader("content-type", "application/json")
-                    .addHeader("app_id", "mathpix")
-                    .addHeader("app_key", "34f1a4cea0eaca8540c95908b4dc84ab")
+                    .addHeader("app_id", "mathinator")
+                    .addHeader("app_key", "34f1a4cea0eaca8540c95908b4dc84ab") //TODO
                     .post(body)
                     .build();
             response = client.newCall(request).execute();
