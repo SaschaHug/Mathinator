@@ -9,11 +9,11 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class MathPixAPIHandler {
+    private Response response;
+
     /**
      * Ruft die MathPix API über OKhttp mit dem aufgenommenen Bild auf und liefert das Ergebnis als LaTeX-String zurück
      */
-
-    private Response response;
     public Response processSingleImage(){
         try{
             OkHttpClient client = new OkHttpClient();
