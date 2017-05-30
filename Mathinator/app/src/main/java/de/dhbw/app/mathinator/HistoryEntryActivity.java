@@ -28,7 +28,6 @@ public class HistoryEntryActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MathinatorDatabaseHelper databaseHelper = MathinatorDatabaseHelper.getInstance(this);
-        //SQLiteDatabase db = databaseHelper.getReadableDatabase();
 
         setContentView(R.layout.activity_history_entry);
 
@@ -49,11 +48,6 @@ public class HistoryEntryActivity extends Activity {
 
             inputTextField.setText(input);
             resultTextField.setText(result);
-
-
         }
-
-
-
     }
 }

@@ -23,9 +23,6 @@ public class Mathinator extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mathinator);
 
-
-        // TODO: Methoden Umbennen?
-        // Die Menüs werden ja nicht direkt aufgerufen sonder es wird nur ein OnClickListener erzeugt...
         showCalculator();
         showHistory();
         showPicture();
@@ -35,7 +32,6 @@ public class Mathinator extends Activity {
     /**
      * Initialisiere onClickListener für Buttons
      */
-
     public void showCalculator()
     {
         calcButton = (Button) findViewById(R.id.calculator_button);

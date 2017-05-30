@@ -30,8 +30,6 @@ import static android.content.ContentValues.TAG;
 public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
 
     /**
-     * Constructor should be private to prevent direct instantiation.
-     * Make a call to the static method "getInstance()" instead.
      * Ist beim Aufruf von getInstance noch keine DB vorhanden, so wird sie erzeugt.
      * Existiert sie bereits, wird diese einfach zurückgegeben
      */
