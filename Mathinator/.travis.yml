@@ -12,6 +12,8 @@ android:
     # The SDK version used to compile your project
     - android-25
 
+    #Scheiß Travis
+
     # Additional components
     #- extra-google-google_play_services
     #- extra-google-m2repository
