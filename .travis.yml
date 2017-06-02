@@ -22,3 +22,7 @@ android:
     #- addon-google_apis-google-19
 
     # Specify at least one system
+    
+      licenses:
+    - 'android-sdk-license-.+'
+    #- 'google-gdk-license-.+'
