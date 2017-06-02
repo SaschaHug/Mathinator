@@ -23,6 +23,6 @@ android:
 
     # Specify at least one system
     
-      licenses:
+  licenses:
     - 'android-sdk-license-.+'
     #- 'google-gdk-license-.+'
