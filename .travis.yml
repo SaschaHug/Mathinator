@@ -1,6 +1,7 @@
 language: android
-before_script: cd Mathinator
+jdk: oraclejdk8
 
+before_script: cd Mathinator
 android:
   components:
     # Uncomment the lines below if you want to
