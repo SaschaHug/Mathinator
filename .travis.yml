@@ -20,7 +20,7 @@ android:
     #- addon-google_apis-google-19
 
     # Emulator
-    - sys-img-armeabi-v7a-android-25
+    - sys-img-armeabi-v7a-android-22
     
   licenses:
     - 'android-sdk-license-.+'
