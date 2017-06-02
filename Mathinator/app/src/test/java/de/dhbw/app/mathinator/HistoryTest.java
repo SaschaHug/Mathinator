@@ -22,7 +22,7 @@ public class HistoryTest {
         db = MathinatorDatabaseHelper.getInstance(context);
     }
 
-
+/*
     @Test
     public void item_isDeleted() throws Exception{
         assertTrue(db.deleteEntry(1));
@@ -37,4 +37,5 @@ public class HistoryTest {
 
         assertTrue(db.addEntry(h));
     }
+    */
 }
