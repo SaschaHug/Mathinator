@@ -23,7 +23,8 @@ public class HistoryMenuAssert extends ActivityInstrumentationTestCase2<Mathinat
         solo.finishOpenedActivities();
         super.tearDown();
   	}
-  
+
+  	/*
 	public void testRun() {
         //Wait for activity: 'de.dhbw.app.mathinator.Mathinator'
 		solo.waitForActivity(de.dhbw.app.mathinator.Mathinator.class, 2000);
@@ -36,4 +37,5 @@ public class HistoryMenuAssert extends ActivityInstrumentationTestCase2<Mathinat
         //Assert that: 'Gleichung' is shown
 		assertTrue("'Gleichung' is not shown!", solo.waitForView(solo.getView(de.dhbw.app.mathinator.R.id.tvEquation, 5)));
 	}
+	*/
 }

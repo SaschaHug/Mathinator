@@ -29,6 +29,7 @@ public class ApplicationTest extends ActivityInstrumentationTestCase2 {
         super.tearDown();
     }
 
+    /*
     public void testMathinator1Opened() throws Exception {
         // Check that MainActivity is opened succesfully
         solo.assertCurrentActivity("Expected Main activity", "Mathinator");
@@ -39,4 +40,5 @@ public class ApplicationTest extends ActivityInstrumentationTestCase2 {
         boolean result = solo.searchText("Hello World!");
         assertEquals("Hello World! text not found", true, result);
     }
+    */
 }
