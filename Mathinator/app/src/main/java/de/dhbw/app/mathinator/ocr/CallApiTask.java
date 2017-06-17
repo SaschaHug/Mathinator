@@ -12,10 +12,6 @@ import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import java.io.IOException;
-
-import de.dhbw.app.mathinator.CalculatorActivity;
-import de.dhbw.app.mathinator.Mathinator;
 import de.dhbw.app.mathinator.calculator.CalculatorBaseVisitorImpl;
 import de.dhbw.app.mathinator.calculator.CalculatorLexer;
 import de.dhbw.app.mathinator.calculator.CalculatorParser;
@@ -34,17 +30,11 @@ public class CallApiTask extends AsyncTask<String, Integer, Long> {
     protected Long doInBackground(String... urls) {
         String url = urls[0];
 
-        Log.i("URL: ", urls[0].toString());
         try {
         MathPixAPIHandler apiHandler = new MathPixAPIHandler();
         Response response = apiHandler.processSingleImage(url);
 
-
-
             Log.i("MathPix", "Response: " + response.networkResponse());
-
-
-
             String responseString = response.body().string();
             Log.i("MathPix", "message content: " + responseString);
 
@@ -52,10 +42,6 @@ public class CallApiTask extends AsyncTask<String, Integer, Long> {
 
                 if (detectionResult != null && detectionResult.latex != null){
                     String equation = detectionResult.latex;
-
-
-
-
 
                     // Calculate Result
                     ANTLRInputStream input = null;
@@ -73,13 +59,12 @@ public class CallApiTask extends AsyncTask<String, Integer, Long> {
                     Double result = calcVisitor.visit(tree);
 
 
-            // Datensätze in die DB schreiben
+                    // Datensätze in die DB schreiben
                     History newEntry = new History();
                     newEntry.equation = equation;
                     newEntry.result = result.toString();
 
                     // Hole Instanz des dbhelpers.
-                    // Kontext muss 'CalculatorActivity.this' statt 'this' sein, da wir uns im onClick Listener befinden
                     MathinatorDatabaseHelper databaseHelper = MathinatorDatabaseHelper.getInstance(context);
                     databaseHelper.addEntry(newEntry);
                 }

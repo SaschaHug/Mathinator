@@ -3,8 +3,12 @@ package de.dhbw.app.mathinator;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,8 +24,11 @@ import android.graphics.Color;
 import android.view.Gravity;
 
 
-
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import de.dhbw.app.mathinator.ocr.CallApiTask;
 import de.dhbw.app.mathinator.ocr.MathPixAPIHandler;
@@ -44,7 +51,10 @@ public class Mathinator extends Activity {
     public static final int OVERLAY_METHOD = 1;
     public static final int OVERLAY_LISTENER_METHOD = 2;
     public static final String CONTINUE_METHOD = "continue_method";
+    static final int REQUEST_TAKE_PHOTO = 1;
+
     private int mChosenContinueMethod;
+    String mCurrentPhotoPath;
 
 
     @Override
@@ -96,37 +106,70 @@ public class Mathinator extends Activity {
             }
         });
     }
+
     public void showPicture()
     {
-
         pictureButton = (Button) findViewById(R.id.camera_button);
         pictureButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(
-                        MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
-                startActivity(intent);
-                Log.i("path: ", getOriginalImagePath());
-
-
-                String  url = "/storage/sdcard/Download/limit.jpg";
-                new CallApiTask(getApplicationContext()).execute(getOriginalImagePath());
-
-
+                dispatchTakePictureIntent();
             }
         });
     }
 
-    public String getOriginalImagePath() {
-        String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = this.managedQuery(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                projection, null, null, null);
-        int column_index_data = cursor
-                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToLast();
 
-        return cursor.getString(column_index_data);
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "com.android.mathinator.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+
+                Log.i("PhotoFileToURI",  photoFile.toURI().toString());
+            }
+        }
     }
+
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        Log.i("Absolute FilePath", mCurrentPhotoPath);
+        return image;
+    }
+
+
+    /**
+     * Wurde das Bild erfolgreich aufgenommen und erstellt wird die API aufgerufen
+     */
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK) {
+            new CallApiTask(getApplicationContext()).execute(mCurrentPhotoPath);
+        }
+    }
+
 
     private void runOverlay_ContinueMethod(){
         // the return handler is used to manipulate the cleanup of all the tutorial elements
@@ -160,7 +203,7 @@ public class Mathinator extends Activity {
 
         ChainTourGuide tourGuide3 = ChainTourGuide.init(this)
                 .setToolTip(new ToolTip()
-                        .setDescription("Make a Picture of an equation you want to solve")
+                        .setDescription("Take a Picture of an equation you want to solve")
                         .setGravity(Gravity.TOP)
                 )
                 .setOverlay(new Overlay()

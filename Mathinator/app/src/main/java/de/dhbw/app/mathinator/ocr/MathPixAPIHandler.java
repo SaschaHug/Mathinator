@@ -52,15 +52,15 @@ public class MathPixAPIHandler {
     }
 
     public String encodeImageToBase64String(String URI){
-
         Bitmap bm = BitmapFactory.decodeFile(URI);
+        if (bm == null)
+            Log.i("EROR", "BitMap is null");
+
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
         byte[] b = baos.toByteArray();
 
-
        String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
-       //Log.i("BASE64 Test: ", encodedImage);
 
         return  encodedImage;
     }
