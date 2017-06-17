@@ -103,12 +103,12 @@ public class HistoryActivity extends Activity {
 
     MathinatorDatabaseHelper databaseHelper = MathinatorDatabaseHelper.getInstance(this);
 
-    List<History> entries = databaseHelper.getAllEntries();
-    for (History entry : entries) {
+  //  List<History> entries = databaseHelper.getAllEntries();
+   /* for (History entry : entries) {
         System.out.println("ID: " + entry.id);
         System.out.println("EQ: " + entry.equation);
         System.out.println("Re: " + entry.result);
-    }
+    }*/
 
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
         // Query for items from the database and get a cursor back

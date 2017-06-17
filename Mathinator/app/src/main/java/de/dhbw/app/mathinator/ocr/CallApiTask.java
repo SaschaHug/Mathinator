@@ -6,10 +6,19 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.Gson;
+
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+
 import java.io.IOException;
 
 import de.dhbw.app.mathinator.CalculatorActivity;
 import de.dhbw.app.mathinator.Mathinator;
+import de.dhbw.app.mathinator.calculator.CalculatorBaseVisitorImpl;
+import de.dhbw.app.mathinator.calculator.CalculatorLexer;
+import de.dhbw.app.mathinator.calculator.CalculatorParser;
 import de.dhbw.app.mathinator.database.History;
 import de.dhbw.app.mathinator.database.MathinatorDatabaseHelper;
 import okhttp3.Response;
@@ -25,38 +34,61 @@ public class CallApiTask extends AsyncTask<String, Integer, Long> {
     protected Long doInBackground(String... urls) {
         String url = urls[0];
 
-        Log.i("test: ", urls[0].toString());
-
+        Log.i("URL: ", urls[0].toString());
+        try {
         MathPixAPIHandler apiHandler = new MathPixAPIHandler();
         Response response = apiHandler.processSingleImage(url);
 
-        Log.i("MathPix", "doInBackground");
-
-        Log.i("MathPix", "isSuccessful: " + response.isSuccessful());
-        Log.i("MathPix", "Response: " + response.networkResponse());
-        //Log.i("MathPix", response.message().toString() + response.body().toString() + response.body().contentType().toString());
-
-       // Log.i("MathPix", response.toString());
-        try {
-            Log.i("MathPix", "message content: " + response.body().string());
-
-        } catch (IOException ioException) {
-            // Do magic
-        }
 
 
-        if(response.isSuccessful()){
+            Log.i("MathPix", "Response: " + response.networkResponse());
+
+
+
+            String responseString = response.body().string();
+            Log.i("MathPix", "message content: " + responseString);
+
+            DetectionResult detectionResult = new Gson().fromJson(responseString, DetectionResult.class);
+
+                if (detectionResult != null && detectionResult.latex != null){
+                    String equation = detectionResult.latex;
+
+
+
+
+
+                    // Calculate Result
+                    ANTLRInputStream input = null;
+                    try {
+                        input = new ANTLRInputStream(equation);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    CalculatorLexer lexer = new CalculatorLexer(input);
+                    CommonTokenStream tokens = new CommonTokenStream(lexer);
+                    CalculatorParser parser = new CalculatorParser(tokens);
+                    ParseTree tree = parser.input();
+                    CalculatorBaseVisitorImpl calcVisitor = new CalculatorBaseVisitorImpl();
+                    Double result = calcVisitor.visit(tree);
+
+
             // Datensätze in die DB schreiben
-            History newEntry = new History();
-            newEntry.equation = "isCalled";
-            newEntry.result = "successfully";
+                    History newEntry = new History();
+                    newEntry.equation = equation;
+                    newEntry.result = result.toString();
 
-            // Hole Instanz des dbhelpers.
-            // Kontext muss 'CalculatorActivity.this' statt 'this' sein, da wir uns im onClick Listener befinden
-            MathinatorDatabaseHelper databaseHelper = MathinatorDatabaseHelper.getInstance(context);
-            databaseHelper.addEntry(newEntry);
+                    // Hole Instanz des dbhelpers.
+                    // Kontext muss 'CalculatorActivity.this' statt 'this' sein, da wir uns im onClick Listener befinden
+                    MathinatorDatabaseHelper databaseHelper = MathinatorDatabaseHelper.getInstance(context);
+                    databaseHelper.addEntry(newEntry);
+                }
 
-        }
+            } catch (Exception e){
+                System.err.println("Something went wrong..");
+                e.printStackTrace();
+
+            }
 
 
 
