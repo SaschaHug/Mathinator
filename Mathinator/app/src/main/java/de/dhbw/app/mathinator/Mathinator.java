@@ -167,6 +167,8 @@ public class Mathinator extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK) {
             new CallApiTask(getApplicationContext()).execute(mCurrentPhotoPath);
+            Toast.makeText(Mathinator.this, "Processing Image. Please Stand By!", Toast.LENGTH_SHORT).show();
+
         }
     }
 
