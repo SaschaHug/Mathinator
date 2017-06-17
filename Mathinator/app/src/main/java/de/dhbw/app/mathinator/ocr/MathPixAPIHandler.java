@@ -35,7 +35,6 @@ public class MathPixAPIHandler {
             text = text.replace("\n", "").replace("\r", "");
 
             MediaType mediaType = MediaType.parse("application/json");
-            //Log.i("JSON: ", "JSON Lenghth: " + stringBuilder.toString().length() + " " + stringBuilder.toString());
             Log.i("JSON Body: ", text);
             RequestBody body = RequestBody.create(mediaType, text);
             Request request = new Request.Builder()

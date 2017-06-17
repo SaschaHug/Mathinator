@@ -2,6 +2,7 @@ package de.dhbw.app.mathinator;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -97,27 +98,39 @@ public class Mathinator extends Activity {
     }
     public void showPicture()
     {
+
         pictureButton = (Button) findViewById(R.id.camera_button);
         pictureButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //MathPixAPIHandler apiHandler = new MathPixAPIHandler();
-                //Response response = apiHandler.processSingleImage();
-                //Log.i("Response", response.message().toString());
-
-                String  url = "/storage/sdcard/Download/limit.jpg";
-                new CallApiTask().execute(url);
 
 
-                /*
-                // Intent instantilieren
+
                 Intent intent = new Intent(
                         MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
-                // Activity starten
                 startActivity(intent);
-                */
+                Log.i("path: ", getOriginalImagePath());
+
+
+                String  url = "/storage/sdcard/Download/limit.jpg";
+                new CallApiTask().execute(getOriginalImagePath());
+
+
             }
         });
     }
+
+    public String getOriginalImagePath() {
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = this.managedQuery(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                projection, null, null, null);
+        int column_index_data = cursor
+                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToLast();
+
+        return cursor.getString(column_index_data);
+    }
+
     private void runOverlay_ContinueMethod(){
         // the return handler is used to manipulate the cleanup of all the tutorial elements
         ChainTourGuide tourGuide1 = ChainTourGuide.init(this)
