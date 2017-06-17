@@ -114,7 +114,7 @@ public class CalculatorActivity extends Activity {
                     e.printStackTrace();
                 }
 
-                // Dattensätze in die DB schreiben
+                // Datensätze in die DB schreiben
                 History newManualCalcEntry = new History();
                 newManualCalcEntry.equation = inputField.getText().toString();
                 newManualCalcEntry.result = resultTextField.getText().toString();

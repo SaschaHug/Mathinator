@@ -1,11 +1,16 @@
 package de.dhbw.app.mathinator.ocr;
 
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import java.io.IOException;
 
+import de.dhbw.app.mathinator.CalculatorActivity;
+import de.dhbw.app.mathinator.Mathinator;
+import de.dhbw.app.mathinator.database.History;
+import de.dhbw.app.mathinator.database.MathinatorDatabaseHelper;
 import okhttp3.Response;
 
 public class CallApiTask extends AsyncTask<String, Integer, Long> {
@@ -32,6 +37,18 @@ public class CallApiTask extends AsyncTask<String, Integer, Long> {
         }
 
 
+        if(response.isSuccessful()){
+            // Datensätze in die DB schreiben
+            History newEntry = new History();
+            newEntry.equation = "isCalled";
+            newEntry.result = "successfully";
+
+            // Hole Instanz des dbhelpers.
+            // Kontext muss 'CalculatorActivity.this' statt 'this' sein, da wir uns im onClick Listener befinden
+            //MathinatorDatabaseHelper databaseHelper = MathinatorDatabaseHelper.getInstance(context);
+            //databaseHelper.addEntry(newEntry);
+
+        }
 
 
 

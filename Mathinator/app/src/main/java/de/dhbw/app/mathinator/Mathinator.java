@@ -102,9 +102,6 @@ public class Mathinator extends Activity {
         pictureButton = (Button) findViewById(R.id.camera_button);
         pictureButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-
-
                 Intent intent = new Intent(
                         MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
                 startActivity(intent);
