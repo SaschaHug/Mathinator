@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import tourguide.tourguide.Overlay;
@@ -18,6 +19,12 @@ import android.graphics.Color;
 import android.view.Gravity;
 
 
+
+import java.net.URL;
+
+import de.dhbw.app.mathinator.ocr.CallApiTask;
+import de.dhbw.app.mathinator.ocr.MathPixAPIHandler;
+import okhttp3.Response;
 
 /**
  * Einstiegspunkt unserer App.
@@ -93,11 +100,21 @@ public class Mathinator extends Activity {
         pictureButton = (Button) findViewById(R.id.camera_button);
         pictureButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                //MathPixAPIHandler apiHandler = new MathPixAPIHandler();
+                //Response response = apiHandler.processSingleImage();
+                //Log.i("Response", response.message().toString());
+
+                String  url = "/storage/sdcard/Download/limit.jpg";
+                new CallApiTask().execute(url);
+
+
+                /*
                 // Intent instantilieren
                 Intent intent = new Intent(
                         MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
                 // Activity starten
                 startActivity(intent);
+                */
             }
         });
     }
