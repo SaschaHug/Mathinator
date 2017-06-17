@@ -1,6 +1,7 @@
 package de.dhbw.app.mathinator.ocr;
 
 
+import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -14,6 +15,13 @@ import de.dhbw.app.mathinator.database.MathinatorDatabaseHelper;
 import okhttp3.Response;
 
 public class CallApiTask extends AsyncTask<String, Integer, Long> {
+    protected Context context;
+
+    public CallApiTask(Context context){
+        this.context = context.getApplicationContext();
+    }
+
+
     protected Long doInBackground(String... urls) {
         String url = urls[0];
 
@@ -45,8 +53,8 @@ public class CallApiTask extends AsyncTask<String, Integer, Long> {
 
             // Hole Instanz des dbhelpers.
             // Kontext muss 'CalculatorActivity.this' statt 'this' sein, da wir uns im onClick Listener befinden
-            //MathinatorDatabaseHelper databaseHelper = MathinatorDatabaseHelper.getInstance(context);
-            //databaseHelper.addEntry(newEntry);
+            MathinatorDatabaseHelper databaseHelper = MathinatorDatabaseHelper.getInstance(context);
+            databaseHelper.addEntry(newEntry);
 
         }
 

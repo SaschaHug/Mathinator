@@ -109,7 +109,7 @@ public class Mathinator extends Activity {
 
 
                 String  url = "/storage/sdcard/Download/limit.jpg";
-                new CallApiTask().execute(getOriginalImagePath());
+                new CallApiTask(getApplicationContext()).execute(getOriginalImagePath());
 
 
             }
