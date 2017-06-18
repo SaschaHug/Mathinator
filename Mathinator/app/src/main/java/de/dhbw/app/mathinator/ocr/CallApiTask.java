@@ -2,7 +2,6 @@ package de.dhbw.app.mathinator.ocr;
 
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -14,7 +13,6 @@ import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import de.dhbw.app.mathinator.HistoryEntryActivity;
 import de.dhbw.app.mathinator.Mathinator;
 import de.dhbw.app.mathinator.ResultActivity;
 import de.dhbw.app.mathinator.ResultFailedActivity;
@@ -36,7 +34,6 @@ public class CallApiTask extends AsyncTask<String, Integer, Long> {
 
     History newEntry = new History();
 
-
     protected Long doInBackground(String... urls) {
         String url = urls[0];
 
@@ -44,7 +41,6 @@ public class CallApiTask extends AsyncTask<String, Integer, Long> {
         MathPixAPIHandler apiHandler = new MathPixAPIHandler();
         Response response = apiHandler.processSingleImage(url);
 
-            Log.i("MathPix", "Response: " + response.networkResponse());
             String responseString = response.body().string();
             Log.i("MathPix", "message content: " + responseString);
 
@@ -73,34 +69,23 @@ public class CallApiTask extends AsyncTask<String, Integer, Long> {
                     newEntry.equation = equation;
                     newEntry.result = result.toString();
 
-                    // Hole Instanz des dbhelpers.
                     MathinatorDatabaseHelper databaseHelper = MathinatorDatabaseHelper.getInstance(context);
                     databaseHelper.addEntry(newEntry);
 
-                    Mathinator.receivedValidLatexString = true;
 
+                    Mathinator.receivedValidLatexString = true;
                 } else
                     Mathinator.receivedValidLatexString = false;
-
-
-
-           // if(detectionResult.detection_map.is_not_math==1)
-             //       Mathinator.receivedValidLatexString = false;
-
             } catch (Exception e){
                 System.err.println("Something went wrong..");
                 e.printStackTrace();
-
             }
-
-
 
         long totalSize = 0;
         return totalSize;
     }
 
     protected void onProgressUpdate(Integer... progress) {
-        //setProgressPercent(progress[0]);
         //Log.i("MathPix", "onProgressUpdate");
     }
 
@@ -117,10 +102,6 @@ public class CallApiTask extends AsyncTask<String, Integer, Long> {
             Intent intent = new Intent(activity.getBaseContext(), ResultFailedActivity.class);
             activity.startActivity(intent);
         }
-
-
-        //activity.startActivity(new Intent(activity, ResultActivity.class));
-
     }
 }
 

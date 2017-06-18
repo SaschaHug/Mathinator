@@ -35,7 +35,6 @@ public class MathPixAPIHandler {
             text = text.replace("\n", "").replace("\r", "");
 
             MediaType mediaType = MediaType.parse("application/json");
-            //Log.i("JSON Body: ", text);
             RequestBody body = RequestBody.create(mediaType, text);
             Request request = new Request.Builder()
                     .url("https://api.mathpix.com/v3/latex")
@@ -59,8 +58,7 @@ public class MathPixAPIHandler {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
         byte[] b = baos.toByteArray();
-
-       String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+        String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
 
         return  encodedImage;
     }

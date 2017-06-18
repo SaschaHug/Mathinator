@@ -2,14 +2,11 @@ package de.dhbw.app.mathinator;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import tourguide.tourguide.Overlay;
@@ -26,13 +23,10 @@ import android.view.Gravity;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import de.dhbw.app.mathinator.ocr.CallApiTask;
-import de.dhbw.app.mathinator.ocr.MathPixAPIHandler;
-import okhttp3.Response;
 
 /**
  * Einstiegspunkt unserer App.
@@ -139,7 +133,7 @@ public class Mathinator extends Activity {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
 
-                Log.i("PhotoFileToURI",  photoFile.toURI().toString());
+//                Log.i("PhotoFileToURI",  photoFile.toURI().toString());
             }
         }
     }
@@ -158,7 +152,7 @@ public class Mathinator extends Activity {
 
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
-        Log.i("Absolute FilePath", mCurrentPhotoPath);
+  //      Log.i("Absolute FilePath", mCurrentPhotoPath);
         return image;
     }
 
