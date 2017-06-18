@@ -17,6 +17,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import de.dhbw.app.mathinator.HistoryEntryActivity;
 import de.dhbw.app.mathinator.Mathinator;
 import de.dhbw.app.mathinator.ResultActivity;
+import de.dhbw.app.mathinator.ResultFailedActivity;
 import de.dhbw.app.mathinator.calculator.CalculatorBaseVisitorImpl;
 import de.dhbw.app.mathinator.calculator.CalculatorLexer;
 import de.dhbw.app.mathinator.calculator.CalculatorParser;
@@ -49,7 +50,7 @@ public class CallApiTask extends AsyncTask<String, Integer, Long> {
 
             DetectionResult detectionResult = new Gson().fromJson(responseString, DetectionResult.class);
 
-                if (detectionResult != null && detectionResult.latex != null){
+                if (detectionResult != null && detectionResult.latex != null && detectionResult.error==""){
                     String equation = detectionResult.latex;
 
                     // Calculate Result
@@ -81,6 +82,11 @@ public class CallApiTask extends AsyncTask<String, Integer, Long> {
                 } else
                     Mathinator.receivedValidLatexString = false;
 
+
+
+           // if(detectionResult.detection_map.is_not_math==1)
+             //       Mathinator.receivedValidLatexString = false;
+
             } catch (Exception e){
                 System.err.println("Something went wrong..");
                 e.printStackTrace();
@@ -99,17 +105,21 @@ public class CallApiTask extends AsyncTask<String, Integer, Long> {
     }
 
     protected void onPostExecute(Long result) {
-        //showDialog("Downloaded " + result + " bytes");
-        //Log.i("MathPix", "onPostExecute");
+        if(Mathinator.receivedValidLatexString)
+            Log.i("validLatexString", "Received a valid LaTeX String...");
 
-        //Intent intent = new Intent(activity, ResultActivity.class);
-        Intent intent = new Intent(activity.getBaseContext(), ResultActivity.class);
-        intent.putExtra("EQUATION", newEntry.equation.toString());
-        intent.putExtra("RESULT", newEntry.result.toString());
+        if(Mathinator.receivedValidLatexString){
+            Intent intent = new Intent(activity.getBaseContext(), ResultActivity.class);
+            intent.putExtra("EQUATION", newEntry.equation.toString());
+            intent.putExtra("RESULT", newEntry.result.toString());
+            activity.startActivity(intent);
+        } else {
+            Intent intent = new Intent(activity.getBaseContext(), ResultFailedActivity.class);
+            activity.startActivity(intent);
+        }
 
 
         //activity.startActivity(new Intent(activity, ResultActivity.class));
-        activity.startActivity(intent);
 
     }
 }

@@ -21,6 +21,7 @@
         <activity android:name=".CalculatorActivity" />
         <activity android:name=".HistoryActivity" />
         <activity android:name=".ResultActivity" />
+        <activity android:name=".ResultFailedActivity" />
         <activity android:name=".HistoryEntryActivity"></activity>
 
         <provider
