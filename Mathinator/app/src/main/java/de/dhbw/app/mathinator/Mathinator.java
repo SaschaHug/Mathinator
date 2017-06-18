@@ -53,6 +53,8 @@ public class Mathinator extends Activity {
     public static final String CONTINUE_METHOD = "continue_method";
     static final int REQUEST_TAKE_PHOTO = 1;
 
+    public static boolean receivedValidLatexString = false;
+
     private int mChosenContinueMethod;
     String mCurrentPhotoPath;
 
@@ -166,11 +168,11 @@ public class Mathinator extends Activity {
      */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK) {
-            new CallApiTask(getApplicationContext()).execute(mCurrentPhotoPath);
+            new CallApiTask(getApplicationContext(), Mathinator.this).execute(mCurrentPhotoPath);
             Toast.makeText(Mathinator.this, "Processing Image. Please Stand By!", Toast.LENGTH_SHORT).show();
-
         }
     }
+
 
 
     private void runOverlay_ContinueMethod(){

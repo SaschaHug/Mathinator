@@ -42,7 +42,7 @@ public class MathinatorDatabaseHelper extends SQLiteOpenHelper {
 
     // Database Info
     private static final String DATABASE_NAME = "mathinatorDatabase";
-    private static final int DATABASE_VERSION = 10;
+    private static final int DATABASE_VERSION = 11;
 
     // Table Names
     private static final String TABLE_HISTORY = "history";

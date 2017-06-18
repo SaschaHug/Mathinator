@@ -1,8 +1,10 @@
 package de.dhbw.app.mathinator.ocr;
 
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -12,6 +14,9 @@ import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import de.dhbw.app.mathinator.HistoryEntryActivity;
+import de.dhbw.app.mathinator.Mathinator;
+import de.dhbw.app.mathinator.ResultActivity;
 import de.dhbw.app.mathinator.calculator.CalculatorBaseVisitorImpl;
 import de.dhbw.app.mathinator.calculator.CalculatorLexer;
 import de.dhbw.app.mathinator.calculator.CalculatorParser;
@@ -21,10 +26,14 @@ import okhttp3.Response;
 
 public class CallApiTask extends AsyncTask<String, Integer, Long> {
     protected Context context;
+    protected Activity activity;
 
-    public CallApiTask(Context context){
+    public CallApiTask(Context context, Activity activity){
         this.context = context.getApplicationContext();
+        this.activity = activity;
     }
+
+    History newEntry = new History();
 
 
     protected Long doInBackground(String... urls) {
@@ -60,14 +69,17 @@ public class CallApiTask extends AsyncTask<String, Integer, Long> {
 
 
                     // Datensätze in die DB schreiben
-                    History newEntry = new History();
                     newEntry.equation = equation;
                     newEntry.result = result.toString();
 
                     // Hole Instanz des dbhelpers.
                     MathinatorDatabaseHelper databaseHelper = MathinatorDatabaseHelper.getInstance(context);
                     databaseHelper.addEntry(newEntry);
-                }
+
+                    Mathinator.receivedValidLatexString = true;
+
+                } else
+                    Mathinator.receivedValidLatexString = false;
 
             } catch (Exception e){
                 System.err.println("Something went wrong..");
@@ -89,6 +101,16 @@ public class CallApiTask extends AsyncTask<String, Integer, Long> {
     protected void onPostExecute(Long result) {
         //showDialog("Downloaded " + result + " bytes");
         //Log.i("MathPix", "onPostExecute");
+
+        //Intent intent = new Intent(activity, ResultActivity.class);
+        Intent intent = new Intent(activity.getBaseContext(), ResultActivity.class);
+        intent.putExtra("EQUATION", newEntry.equation.toString());
+        intent.putExtra("RESULT", newEntry.result.toString());
+
+
+        //activity.startActivity(new Intent(activity, ResultActivity.class));
+        activity.startActivity(intent);
+
     }
 }
 

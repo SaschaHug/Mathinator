@@ -35,7 +35,7 @@ public class MathPixAPIHandler {
             text = text.replace("\n", "").replace("\r", "");
 
             MediaType mediaType = MediaType.parse("application/json");
-            Log.i("JSON Body: ", text);
+            //Log.i("JSON Body: ", text);
             RequestBody body = RequestBody.create(mediaType, text);
             Request request = new Request.Builder()
                     .url("https://api.mathpix.com/v3/latex")
